@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated article and this software release."
+title: "Reproducibility code for Regulating the Unknowns of Agentic AI: Institutional Containment and Runtime Mediation of Value Missing and Value Slippage"
+type: software
+authors:
+  - family-names: "Anonymous"
+    given-names: "Author(s)"
+version: 1.0.0
+license: MIT
+keywords:
+  - agentic AI
+  - uncertainty regulation
+  - governance cells
+  - runtime mediation
+  - propagated exposure
+  - compromised execution persistence
+abstract: >-
+  Reproducibility code for the stochastic governance-cell containment
+  experiment, manuscript figures, marginal summaries, and illustrative
+  Action Trace associated with the article Regulating the Unknowns of
+  Agentic AI: Institutional Containment and Runtime Mediation of Value
+  Missing and Value Slippage.

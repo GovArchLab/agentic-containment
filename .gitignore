@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local research history and maintenance files
+_local_archive/
+_local_exclude/
+
+# Temporary verification directories
+.simulation_output_public_check_*/
+.marginals_pe_cep_check_*/
+
+# Backups and editor temporaries
+*.backup*
+*~
+*.tmp
+*.temp
+
+# Local repository-maintenance scripts
+/organize_repository.ps1
+/final_postcheck.ps1
+/create_public_repo_files.ps1
+/replay_for_README.ps1
+
+# Local check output
+/final_postcheck_output.txt
