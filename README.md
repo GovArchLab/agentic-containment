@@ -1,6 +1,6 @@
 # Governing Agentic AI Under Deep Uncertainty — Reproducibility Code
 
-This repository contains the reproducibility code and simulation outputs associated with the manuscript:
+This repository contains the reproducibility code, simulation outputs, analysis scripts, and figure-generation scripts associated with the manuscript:
 
 **Governing Agentic AI Under Deep Uncertainty: Scenario-Based Stress Tests of Institutional Containment**
 
@@ -45,26 +45,63 @@ It is not calibrated to empirical frequencies of real-world agentic-AI incidents
 ```text
 agentic-containment/
 ├── institutional_containment_stress_test.py
+├── analyze_simulation_results.py
+├── plot_topology_stress_results.py
+├── plot_containment_response_surfaces.py
+├── plot_bounded_leakage_gap.py
 ├── README.md
 ├── CITATION.cff
 ├── LICENSE
 ├── requirements.txt
+│
 ├── validation/
 │   └── s0_reference_196.csv
-└── simulation_output/
-    ├── scenario_sweep_784.csv
-    ├── scenario_summary.csv
-    ├── topology_manifest.json
-    ├── s0_regression_check.csv
-    ├── S0_maximal_connectivity/
-    │   └── parameter_sweep_196.csv
-    ├── S1_sparse_sequential/
-    │   └── parameter_sweep_196.csv
-    ├── S2_hub_mediated/
-    │   └── parameter_sweep_196.csv
-    └── S3_layered/
-        └── parameter_sweep_196.csv
+│
+├── simulation_output/
+│   ├── scenario_sweep_784.csv
+│   ├── scenario_summary.csv
+│   ├── topology_manifest.json
+│   ├── s0_regression_check.csv
+│   ├── S0_maximal_connectivity/
+│   │   └── parameter_sweep_196.csv
+│   ├── S1_sparse_sequential/
+│   │   └── parameter_sweep_196.csv
+│   ├── S2_hub_mediated/
+│   │   └── parameter_sweep_196.csv
+│   └── S3_layered/
+│       └── parameter_sweep_196.csv
+│
+├── analysis_output/
+│   ├── scenario_means.csv
+│   ├── topology_by_p.csv
+│   ├── topology_by_tau.csv
+│   ├── topology_by_fn.csv
+│   ├── contrasts_vs_S0.csv
+│   ├── contrasts_vs_S0_by_p.csv
+│   ├── contrasts_vs_S0_by_tau.csv
+│   ├── contrasts_vs_S0_by_fn.csv
+│   ├── structural_checks.csv
+│   ├── endpoint_contrasts.csv
+│   └── anchor_condition.csv
+│
+└── figures/
+    ├── topology_stress_results.pdf
+    ├── topology_stress_results.png
+    ├── containment_envelope.pdf
+    ├── containment_envelope.png
+    ├── containment_envelope_clean.pdf
+    ├── containment_envelope_clean.png
+    ├── leakage_envelope.pdf
+    ├── leakage_envelope.png
+    ├── leakage_envelope_clean.pdf
+    ├── leakage_envelope_clean.png
+    ├── bounded_leakage_gap.pdf
+    └── bounded_leakage_gap.png
 ```
+
+The `analysis_output/` and `figures/` directories can be regenerated from the simulation outputs using the supplied analysis and plotting scripts.
+
+An annotated bounded-leakage-gap figure can additionally be generated with the `--annotate` option.
 
 ## Reproducibility Design
 
@@ -279,11 +316,9 @@ It represents the unconditional share of episodes in which an adverse executable
 
 A larger bounded-leakage gap does not by itself imply better containment and should be interpreted jointly with leakage, systemic contagion, PE, CEP, and strategic velocity.
 
-## Running the Experiment
+## Environment
 
-From the repository root, install the dependencies listed in `requirements.txt`.
-
-For example:
+Create and activate a Python virtual environment, then install the dependencies listed in `requirements.txt`:
 
 ```bash
 python -m venv .venv
@@ -291,7 +326,15 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-Then run:
+The required Python packages include NumPy, pandas, and Matplotlib.
+
+## Running the Experiment
+
+All commands below assume that the current working directory is the repository root.
+
+### 1. Reproduce the simulation
+
+Run:
 
 ```bash
 python institutional_containment_stress_test.py --overwrite
@@ -319,15 +362,139 @@ python institutional_containment_stress_test.py \
   --overwrite
 ```
 
-The `--overwrite` option permits generated CSV and JSON outputs in the existing `simulation_output` directory to be replaced in place.
+The `--overwrite` option permits generated CSV and JSON files in the existing `simulation_output` directory to be replaced in place.
 
 The output directory itself is not deleted.
 
-This behavior avoids directory-locking problems that can arise in synchronized or cross-platform file systems.
+This behavior avoids directory-locking problems that may arise in synchronized or cross-platform file systems.
+
+### 2. Reproduce the descriptive analysis
+
+After the simulation completes successfully, run:
+
+```bash
+python analyze_simulation_results.py
+```
+
+This reads:
+
+```text
+./simulation_output/scenario_sweep_784.csv
+```
+
+and writes the descriptive analysis files to:
+
+```text
+./analysis_output/
+```
+
+The analysis includes:
+
+- design-wide scenario means;
+- topology × propagation-pressure marginals;
+- topology × mediation-delay marginals;
+- topology × non-detection marginals;
+- matched-condition contrasts relative to S0;
+- endpoint contrasts;
+- the manuscript anchor condition; and
+- structural checks for the S0-S2 comparison.
+
+### 3. Reproduce the topology comparison figure
+
+Run:
+
+```bash
+python plot_topology_stress_results.py
+```
+
+This generates:
+
+```text
+figures/topology_stress_results.pdf
+figures/topology_stress_results.png
+```
+
+The four panels compare the governance topologies across propagation pressure, mediation delay, and episode-level non-detection.
+
+### 4. Reproduce the S0 containment response surfaces
+
+Run:
+
+```bash
+python plot_containment_response_surfaces.py
+```
+
+This reads:
+
+```text
+./simulation_output/S0_maximal_connectivity/parameter_sweep_196.csv
+```
+
+and generates annotated and clean publication versions of the systemic-contagion and cross-cell-leakage response surfaces.
+
+The principal outputs are:
+
+```text
+figures/containment_envelope.pdf
+figures/containment_envelope.png
+figures/containment_envelope_clean.pdf
+figures/containment_envelope_clean.png
+
+figures/leakage_envelope.pdf
+figures/leakage_envelope.png
+figures/leakage_envelope_clean.pdf
+figures/leakage_envelope_clean.png
+```
+
+### 5. Reproduce the bounded-leakage-gap figure
+
+Run:
+
+```bash
+python plot_bounded_leakage_gap.py
+```
+
+This generates:
+
+```text
+figures/bounded_leakage_gap.pdf
+figures/bounded_leakage_gap.png
+```
+
+To generate the version with cell-level percentage-point values, run:
+
+```bash
+python plot_bounded_leakage_gap.py --annotate
+```
+
+which additionally generates:
+
+```text
+figures/bounded_leakage_gap_annotated.pdf
+figures/bounded_leakage_gap_annotated.png
+```
+
+### Complete reproduction sequence
+
+The complete workflow is therefore:
+
+```bash
+python institutional_containment_stress_test.py --overwrite
+python analyze_simulation_results.py
+python plot_topology_stress_results.py
+python plot_containment_response_surfaces.py
+python plot_bounded_leakage_gap.py
+```
+
+Optional annotated bounded-leakage figure:
+
+```bash
+python plot_bounded_leakage_gap.py --annotate
+```
 
 ## Expected Verification Output
 
-A successful full run should include:
+A successful simulation run should include:
 
 ```text
 [PASS] Computational verification checks.
@@ -361,7 +528,7 @@ Accordingly, cross-cell leakage is identical across all 196 matched parameter co
 
 S2 nevertheless restricts secondary-to-secondary connectivity, reducing downstream systemic escalation relative to S0.
 
-## Generated Files
+## Generated Simulation Files
 
 ### `scenario_sweep_784.csv`
 
@@ -393,6 +560,36 @@ Column-level report of the exact S0 regression comparison against the verified r
 ### Per-topology `parameter_sweep_196.csv`
 
 Each topology directory contains its corresponding 196-condition parameter sweep.
+
+## Generated Analysis Files
+
+The `analysis_output/` directory contains descriptive summaries used to inspect and report the simulation results.
+
+These include:
+
+```text
+scenario_means.csv
+topology_by_p.csv
+topology_by_tau.csv
+topology_by_fn.csv
+contrasts_vs_S0.csv
+contrasts_vs_S0_by_p.csv
+contrasts_vs_S0_by_tau.csv
+contrasts_vs_S0_by_fn.csv
+structural_checks.csv
+endpoint_contrasts.csv
+anchor_condition.csv
+```
+
+These files are derived from `scenario_sweep_784.csv` and do not modify the underlying stochastic simulation outputs.
+
+## Generated Figures
+
+The `figures/` directory contains PDF and 600-dpi PNG versions of the reproduced simulation figures.
+
+The plotting scripts read previously generated CSV outputs and do not rerun the stochastic simulation.
+
+This separation ensures that changes to plotting code cannot alter the underlying simulation results.
 
 ## Interpretation Boundaries
 
