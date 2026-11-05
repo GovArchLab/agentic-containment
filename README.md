@@ -231,15 +231,15 @@ It does not necessarily denote malware transmission or technical intrusion.
 
 Institutionally, propagation may correspond to autonomous tool use, exercised permissions, resource access, or consequential cross-domain action.
 
-For susceptible target cell \(j\), the per-step propagation probability is:
+For susceptible target cell j, the per-step propagation probability is:
 
-```text
+```html
 q_j = 1 - (1 - p)^k_j
 ```
 
-where \(k_j\) is the number of actively compromised source cells with a directed executable-authority interface to target cell \(j\).
+where k_j is the number of actively compromised source cells with a directed executable-authority interface to target cell j.
 
-A cell newly compromised during simulation step \(t\) first becomes active at step \(t+1\).
+A cell newly compromised during simulation step t first becomes active at step t+1.
 
 Same-step cascading is therefore excluded.
 
@@ -318,7 +318,17 @@ A larger bounded-leakage gap does not by itself imply better containment and sho
 
 ## Environment
 
-Create and activate a Python virtual environment, then install the dependencies listed in `requirements.txt`:
+The reproducibility workflow was tested with Python 3.12.
+
+The verified external package versions are pinned in `requirements.txt`:
+
+```text
+numpy==2.5.4
+pandas==3.1.0
+matplotlib==3.11.2
+```
+
+Create and activate a virtual environment, then install the dependencies:
 
 ```bash
 python -m venv .venv
@@ -326,7 +336,9 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-The required Python packages include NumPy, pandas, and Matplotlib.
+The computational workflow depends directly on NumPy, pandas, and Matplotlib.
+
+Pinning the tested package versions helps preserve the numerical and plotting environment used for the reported reproducibility checks.
 
 ## Running the Experiment
 
