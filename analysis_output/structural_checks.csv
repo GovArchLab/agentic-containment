@@ -1,0 +1,5 @@
+check,passed
+S0-S2 leakage identical across all 196 matched conditions,True
+S2 systemic contagion <= S0 in all 196 matched conditions,True
+S2 propagated exposure <= S0 in all 196 matched conditions,True
+S2 strategic velocity >= S0 in all 196 matched conditions,True
