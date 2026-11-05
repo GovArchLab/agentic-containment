@@ -1,22 +1,51 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the associated article and this software release."
-title: "Reproducibility code for Regulating the Unknowns of Agentic AI: Institutional Containment and Runtime Mediation of Value Missing and Value Slippage"
+
+message: >-
+  If you use this software, please cite this repository and,
+  once available, the associated article.
+
+title: >-
+  Reproducibility code for Governing Agentic AI Under Deep Uncertainty:
+  Scenario-Based Stress Tests of Institutional Containment
+
 type: software
+
 authors:
   - family-names: "Anonymous"
     given-names: "Author(s)"
-version: 1.0.0
+
 license: MIT
+
+repository-code: "https://github.com/GovArchLab/agentic-containment"
+
+url: "https://github.com/GovArchLab/agentic-containment"
+
 keywords:
-  - agentic AI
-  - uncertainty regulation
-  - governance cells
-  - runtime mediation
-  - propagated exposure
-  - compromised execution persistence
+  - "agentic AI"
+  - "deep uncertainty"
+  - "uncertainty regulation"
+  - "institutional containment"
+  - "governance cells"
+  - "runtime mediation"
+  - "executable authority"
+  - "value missing"
+  - "value slippage"
+  - "scenario-based stress testing"
+  - "cross-cell leakage"
+  - "systemic contagion"
+  - "propagated exposure"
+  - "compromised execution persistence"
+  - "Action Traces"
+
 abstract: >-
-  Reproducibility code for the stochastic governance-cell containment
-  experiment, manuscript figures, marginal summaries, and illustrative
-  Action Trace associated with the article Regulating the Unknowns of
-  Agentic AI: Institutional Containment and Runtime Mediation of Value
-  Missing and Value Slippage.
+  Reproducibility code for the scenario-based stochastic stress tests
+  associated with the manuscript "Governing Agentic AI Under Deep
+  Uncertainty: Scenario-Based Stress Tests of Institutional Containment."
+  The experiment evaluates downstream institutional containment across
+  four five-cell governance topologies while varying propagation pressure,
+  mediation delay, and episode-level non-detection. The repository supports
+  analysis of cross-cell leakage, systemic contagion, strategic velocity,
+  propagated exposure, compromised execution persistence, and the
+  bounded-leakage gap. The simulation is a structured design experiment
+  and is not calibrated to empirical frequencies of real-world agentic-AI
+  incidents.
