@@ -1,0 +1,17 @@
+column,exact_match,max_abs_diff
+p,True,0.0
+tau,True,0.0
+fn_rate,True,0.0
+replicates,True,0.0
+systemic_contagion_pct,True,0.0
+systemic_contagion_ci_low,True,0.0
+systemic_contagion_ci_high,True,0.0
+cross_cell_leakage_pct,True,0.0
+strategic_velocity_pct,True,0.0
+strategic_velocity_mcse,True,0.0
+propagated_exposure,True,0.0
+propagated_exposure_mcse,True,0.0
+compromised_execution_persistence,True,0.0
+compromised_execution_persistence_mcse,True,0.0
+mean_secondary_cells_affected,True,0.0
+condition_id,True,0.0

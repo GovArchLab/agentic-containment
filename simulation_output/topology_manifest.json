@@ -1,0 +1,453 @@
+{
+  "study_title": "Governing Agentic AI Under Deep Uncertainty: Scenario-Based Stress Tests of Institutional Containment",
+  "model_type": "scenario-based structured stochastic design experiment",
+  "interpretive_status": "theory-grounded synthetic stress test; not calibrated to empirical frequencies of real-world agentic-AI incidents",
+  "reproducibility_gate": "S0 maximal-connectivity output must exactly match the verified 196-condition reference sweep before S1-S3 are executed",
+  "seed": 42,
+  "replicates_per_condition": 1000,
+  "num_cells": 5,
+  "sweep_horizon_steps": 12,
+  "conditions_per_topology": 196,
+  "total_parameter_conditions": 784,
+  "total_containment_episodes": 784000,
+  "parameters": {
+    "p": [
+      0.001,
+      0.005,
+      0.01,
+      0.02
+    ],
+    "tau": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "fn_rate": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3
+    ]
+  },
+  "parameter_interpretation": {
+    "p": "per-active-source, per-susceptible-cell, per-step propagation stress probability",
+    "tau": "relative mediation delay in abstract simulation steps; not calibrated to clock time",
+    "fn_rate": "episode-level probability that a compromised cell remains undetected during the modeled episode"
+  },
+  "timing_rules": {
+    "new_compromise": "a cell compromised during step t first becomes active at step t+1",
+    "tau_zero": "a detected cell with tau=0 is isolated before its first or next propagation opportunity",
+    "same_step_cascading": false,
+    "endogenous_recovery": false
+  },
+  "outcome_definitions": {
+    "cross_cell_leakage": "at least one secondary governance cell is ever compromised",
+    "systemic_contagion": "at least two secondary governance cells are ever compromised",
+    "strategic_velocity": "share of secondary cell-time remaining uncompromised",
+    "propagated_exposure": "number of secondary governance cells reached",
+    "compromised_execution_persistence": "cumulative active compromised cell-steps",
+    "bounded_leakage_gap": "cross-cell leakage percentage minus systemic-contagion percentage"
+  },
+  "scenarios": {
+    "S0_maximal_connectivity": {
+      "scenario_id": "S0_maximal_connectivity",
+      "scenario_name": "Maximal-Connectivity Topology",
+      "legacy_experiment_id": "S0_maximal_connectivity",
+      "topology_type": "complete_directed",
+      "directed_edges": 20,
+      "topology_density": 1.0,
+      "origin_out_degree": 4,
+      "origin_cell_label": "Originating Governance Cell",
+      "interpretation": "Every governance cell has a directed executable-authority interface to each of the other four cells.",
+      "cell_labels": [
+        "Originating Governance Cell",
+        "Secondary Governance Cell 1",
+        "Secondary Governance Cell 2",
+        "Secondary Governance Cell 3",
+        "Secondary Governance Cell 4"
+      ],
+      "edges_one_based": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "adjacency_matrix": [
+        [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      ]
+    },
+    "S1_sparse_sequential": {
+      "scenario_id": "S1_sparse_sequential",
+      "scenario_name": "Sparse Sequential Topology",
+      "legacy_experiment_id": "S1_procurement",
+      "topology_type": "sparse_sequential",
+      "directed_edges": 5,
+      "topology_density": 0.25,
+      "origin_out_degree": 1,
+      "origin_cell_label": "Supplier Intelligence",
+      "interpretation": "A sparse procurement-to-payment authority structure with limited immediate reach from the originating cell.",
+      "cell_labels": [
+        "Supplier Intelligence",
+        "Procurement Authorization",
+        "Vendor Master",
+        "Payment Execution",
+        "Accounting and Compliance"
+      ],
+      "edges_one_based": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "adjacency_matrix": [
+        [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "S2_hub_mediated": {
+      "scenario_id": "S2_hub_mediated",
+      "scenario_name": "Hub-Mediated Topology",
+      "legacy_experiment_id": "S2_tool_cascade",
+      "topology_type": "hub_mediated",
+      "directed_edges": 8,
+      "topology_density": 0.4,
+      "origin_out_degree": 4,
+      "origin_cell_label": "Agent Orchestration",
+      "interpretation": "The originating orchestration cell has bidirectional interfaces with each secondary domain, while secondary domains lack direct interfaces to one another.",
+      "cell_labels": [
+        "Agent Orchestration",
+        "Internal Data Services",
+        "Communications",
+        "External APIs and Services",
+        "Privileged Enterprise Operations"
+      ],
+      "edges_one_based": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "adjacency_matrix": [
+        [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "S3_layered": {
+      "scenario_id": "S3_layered",
+      "scenario_name": "Layered Topology",
+      "legacy_experiment_id": "S3_authorization_degradation",
+      "topology_type": "layered_directed",
+      "directed_edges": 7,
+      "topology_density": 0.35,
+      "origin_out_degree": 2,
+      "origin_cell_label": "Customer Operations",
+      "interpretation": "A layered structure in which adverse execution can acquire downstream consequences through successive institutional domains.",
+      "cell_labels": [
+        "Customer Operations",
+        "Customer Data",
+        "Analytics and Decision Support",
+        "External Disclosure and Partner Transfer",
+        "Compliance and Oversight"
+      ],
+      "edges_one_based": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "adjacency_matrix": [
+        [
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "excluded_claims": [
+    "empirical prediction of real-world incident frequencies",
+    "universal superiority of any governance topology",
+    "numerical measurement of the normative magnitude of value missing or value slippage"
+  ]
+}
